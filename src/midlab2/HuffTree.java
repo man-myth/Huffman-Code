@@ -60,6 +60,7 @@ public class HuffTree {
      * 'a' = output huffman code separated by a space
      * otherwise,
      */
+
     public String toHuffCodeEquivalent(String s, char c) throws Exception {
         StringBuilder sb = new StringBuilder();
         String temp = s;

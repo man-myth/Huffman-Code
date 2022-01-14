@@ -10,7 +10,7 @@ public class HuffApplication {
      **/
     public static void main(String[] args) {
         int choice;
-        String str;
+        String str = "";
         HuffTree tree = null;
 
         System.out.println("This is the Huffman Coding Application!");
@@ -29,33 +29,37 @@ public class HuffApplication {
                         System.out.println("\nPlease input a Series of Characters.");
                         System.out.print("Enter a phrase/sentence/paragraph: ");
                         str = kbd.nextLine();
-                        TextUtility tu = new TextUtility(str);
-                        ArrayList<Character> chars = tu.getCharacters();
-                        ArrayList<Integer> freq = tu.getFrequency();
-                        System.out.println();
-                        tree = new HuffTree(chars, freq);
-                        tree.printTable();
-                        System.out.printf("%n%s%.2f%n", "% Savings = ", tree.computePercentageOfSavings());
-                        System.out.printf("%s%s%n", "Huffman Code = ", tree.toHuffCodeEquivalent((str), 'x'));
-                        System.out.printf("%s%s%n", "Text = ", tree.toTextEquivalent(tree.toHuffCodeEquivalent((str), 'a')));
-                        System.out.println();
-                        System.out.println("Huffman Tree (In order):");
-                        tree.inorderTraversal();
                         enterKeyToContinue();
                     }
                     case 2 -> {
-                        System.out.println("\nPlease input a Text.");
-                        System.out.print("Enter a text: ");
-                        str = kbd.nextLine();
-                        System.out.printf("%s%s%n", "Huffman Code: ", tree.toHuffCodeEquivalent((str), 'x'));
+                        try {
+                            TextUtility tu = new TextUtility(str);
+                            ArrayList<Character> chars = tu.getCharacters();
+                            ArrayList<Integer> freq = tu.getFrequency();
+                            System.out.println();
+                            tree = new HuffTree(chars, freq);
+                            tree.printTable();
+                            System.out.printf("%n%s%.2f%n", "% Savings = ", tree.computePercentageOfSavings());
+                            System.out.printf("%s%s%n", "Huffman Code = ", tree.toHuffCodeEquivalent((str), 'x'));
+                            System.out.printf("%s%s%n", "Text = ", tree.toTextEquivalent(tree.toHuffCodeEquivalent((str), 'a')));
+                            System.out.println();
+                            System.out.println("Huffman Tree (In order):");
+                            tree.inorderTraversal();
+                        } catch (Exception e){
+                            System.out.println("Please input series of characters first");
+                        }
                         enterKeyToContinue();
                     }
                     case 3 -> {
+                        if(str == ""){
+                            System.out.println("Please input series of characters first");
+                            break;
+                        }
                         System.out.println("\nPlease input a Huffman Code separated by space.");
                         System.out.print("Enter a Huffman Code: ");
                         str = kbd.nextLine();
-                        if(!str.contains(" ") && !isCodeValid(tree, str)){
-                            System.out.println("Invalid Huffman Code! Make sure the Huffman code is separated by space");
+                        if (!str.contains(" ") && !isCodeValid(tree, str)) {
+                                System.out.println("Invalid Huffman Code! Make sure the Huffman code is separated by space");
                         } else {
                             System.out.printf("%s%s%n", "Text: ", tree.toTextEquivalent(str));
                         }
